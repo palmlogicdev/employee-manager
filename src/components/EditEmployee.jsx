@@ -18,7 +18,7 @@ function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
 
         const selectEmployee = async () => {
             try {
-                const { data } = await axios.get(`${API_URL}employee/${idForEdit}`);
+                const { data } = await axios.get(`${API_URL}/employee/${idForEdit}`);
                 console.log(data);
                 setEmployee(data);
             } catch (error) {

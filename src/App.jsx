@@ -8,14 +8,14 @@ import EditEmployee from './components/EditEmployee'
 
 function App() {
 
-  const API_URL = "http://127.0.0.1:8000/"
+  const API_URL = import.meta.env.VITE_API_URL;
   const [employee, setEmployee] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [idForEdit, setIdForEdit] = useState(null);
 
   const fetchEmployees = async () => {
-      try {
-          const { data } = await axios.get(`${API_URL}employee`);
+      try { 
+          const { data } = await axios.get(`${API_URL}/employee`);
           console.log("API response: ", data);
           setEmployee(data);
       } catch (error) {

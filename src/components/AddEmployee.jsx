@@ -52,7 +52,7 @@ function AddEmployee({ API_URL, fetchEmployees }) {
 
         if (Object.keys(newError).length == 0) {
             try {
-                const { data } = await axios.post(`${API_URL}employee`, employee, {
+                const { data } = await axios.post(`${API_URL}/employee`, employee, {
                     headers: {
                         'Content-Type': 'application/json'
                     }

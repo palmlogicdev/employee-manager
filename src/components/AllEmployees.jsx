@@ -12,7 +12,7 @@ function AllEmployees({ API_URL, fetchEmployees, employee, setIdForEdit, setIsEd
 
         if (confirmDelete) {
             try {
-                const { data } = await axios.delete(`${API_URL}employee/${id}`); 
+                const { data } = await axios.delete(`${API_URL}/employee/${id}`); 
                 
                 console.log("API response: ", data);
                 fetchEmployees();
