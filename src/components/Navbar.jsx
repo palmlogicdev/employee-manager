@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <header id='navbar'>
         <div className="site_name">
-          <h1 className='text-3xl mt-2'>Employees Manager</h1>
+          <h1 className='text-3xl mt-2'>Developer Employees Manager</h1>
         </div>
     </header>
   )

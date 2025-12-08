@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
+function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees, roles }) {
 
     const [employee, setEmployee] = useState({
         firstname: "",
         lastname: "",
         email: "",
         salary: 0,
-        role: ""
+        role: "",
+        status: ""
     });
     const [error, setError] = useState({});
 
@@ -25,7 +26,7 @@ function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
                 if (error.response) {
                     console.log("API error: ", error.response.data);
                 } else {
-                    console.log("Network error");
+                    console.log("Network error", error);
                 }
             }
         }
@@ -67,7 +68,7 @@ function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
             newError.email = "Email is invalid";
         }
 
-        if (!employee.salary?.trim()) {
+        if (!employee.salary) {
             newError.salary = "Salary is required";
         }
 
@@ -75,11 +76,15 @@ function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
             newError.role = "Role is required";
         }
 
+        if (!employee.status?.trim()) {
+            newError.status = "Status is required";
+        }
+
         setError(newError);
 
         if (Object.keys(newError).length == 0) {
             try {
-                const { data } = await axios.put(`${API_URL}employee/${idForEdit}`, employee);
+                const { data } = await axios.put(`${API_URL}/employee/${idForEdit}`, employee);
                 console.log(data);
                 fetchEmployees();
                 setIsEditMode(false);
@@ -87,7 +92,7 @@ function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
                 if (error.response) {
                     console.log("API error: ", error.response.data);
                 } else {
-                    console.log("Nerwork error");
+                    console.log("Nerwork error", error);
                 }
             }
         }
@@ -154,15 +159,21 @@ function EditEmployee({ idForEdit, API_URL, setIsEditMode, fetchEmployees }) {
                         value={employee.role}
                     >
                         <option value="">Please Select</option>
-                        <option value="Junior Developer">Junior Developer</option>
-                        <option value="Mid-Level Developer">Mid-Level Developer</option>
-                        <option value="Senior Developer">Senior Developer</option>
-                        <option value="Lead Developer / Tech Lead">Lead Developer / Tech Lead</option>
-                        <option value="Full Stack Developer">Full Stack Developer</option>
-                        <option value="Frontend Developer">Frontend Developer</option>
-                        <option value="Backend Developer">Backend Developer</option>
-                        <option value="Mobile Developer">Mobile Developer</option>
+                        {roles.map((role) => (
+                            <option value={role}>{role}</option>
+                        ))}
                     </select>
+                </div>
+                <div className="input-box my-3 flex flex-col">
+                    <label htmlFor="status">Status</label>
+                    <input 
+                        type="text" 
+                        name="status" 
+                        id="status"
+                        className='border border-gray-300 p-1 rounded'
+                        value={employee.status} 
+                        onChange={(e) => handleChange(e)}
+                    />
                 </div>
                 <button type="submit" className='border-none bg-green-600 text-xl rounded text-white p-1 mt-3 cursor-pointer active:bg-green-800'>SUBMIT</button>
             </form>

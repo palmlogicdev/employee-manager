@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-function AddEmployee({ API_URL, fetchEmployees }) {
+function AddEmployee({ API_URL, fetchEmployees, roles }) {
 
     const employeeRef = {
         firstname: "",
         lastname: "",
         email: "",
         salary: "",
-        role: ""
+        role: "",
+        status: "Inactive"
     }
 
     const [employee, setEmployee] = useState(employeeRef);
@@ -134,14 +135,9 @@ function AddEmployee({ API_URL, fetchEmployees }) {
                         value={employee.role}
                     >
                         <option value="">Please Select</option>
-                        <option value="Junior Developer">Junior Developer</option>
-                        <option value="Mid-Level Developer">Mid-Level Developer</option>
-                        <option value="Senior Developer">Senior Developer</option>
-                        <option value="Lead Developer / Tech Lead">Lead Developer / Tech Lead</option>
-                        <option value="Full Stack Developer">Full Stack Developer</option>
-                        <option value="Frontend Developer">Frontend Developer</option>
-                        <option value="Backend Developer">Backend Developer</option>
-                        <option value="Mobile Developer">Mobile Developer</option>
+                        {roles.map((role) => (
+                            <option value={role}>{role}</option>
+                        ))}
                     </select>
                     {error.role && <span className='text-red-500'>{error.role}</span>}
                 </div>

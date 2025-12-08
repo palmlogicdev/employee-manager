@@ -12,6 +12,10 @@ function App() {
   const [employee, setEmployee] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
   const [idForEdit, setIdForEdit] = useState(null);
+  const roles = ['CEO','CTO','COO','Project manager', 'Product manager',
+                'Engineering manager', 'Junior developer', 'Mid-Level developer',
+                'Senior developer', 'Lead developer / Text lead', 'Full-Stack developer',
+                'Frontend developer', 'Backend developer', 'Mobile developer'];
 
   const fetchEmployees = async () => {
       try { 
@@ -33,11 +37,11 @@ function App() {
     <div className='w-[1200px] m-auto relative'>
       <Navbar />
       <hr className='my-5 border-gray-300'/>
-      <AddEmployee API_URL={API_URL} fetchEmployees={fetchEmployees} />
+      <AddEmployee API_URL={API_URL} fetchEmployees={fetchEmployees} roles={roles}/>
       <hr className='my-5 border-gray-300'/>
       <AllEmployees API_URL={API_URL} fetchEmployees={fetchEmployees} employee={employee} setIsEditMode={setIsEditMode} setIdForEdit={setIdForEdit}/>
       <div className={`${isEditMode ? 'absolute' : 'hidden'} top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]`}>
-        <EditEmployee idForEdit={idForEdit} API_URL={API_URL} setIsEditMode={setIsEditMode} fetchEmployees={fetchEmployees}/>
+        <EditEmployee idForEdit={idForEdit} API_URL={API_URL} setIsEditMode={setIsEditMode} fetchEmployees={fetchEmployees} roles={roles}/>
       </div>
     </div>
   )
